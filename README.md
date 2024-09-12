@@ -1,3 +1,3 @@
 # chanjiaqi.github.io
 
-The thing is HTML sucks 
+<body> The thing is html is the best </body>
