@@ -1,0 +1,28 @@
+body { 
+  background-color: cyan; 
+  padding: 25px; 
+  font-size: 200%;
+}
+
+h1 {
+  color: Gold; 
+  padding: 9px; 
+  background: black;
+  width: fit-content;
+  font-family: cursive; 
+  font-size: 300%; 
+  padding-left: 50%;
+}
+
+h2 {
+  text-transform: uppercase; 
+  text-indent: 40%; 
+  outline-style: dotted; 
+  outline-offset: 10px; 
+  outline-width: thick;
+  padding: 10px;
+}
+
+p{font-weight: bold;}
+
+p.special{text-transform:uppercase;}
