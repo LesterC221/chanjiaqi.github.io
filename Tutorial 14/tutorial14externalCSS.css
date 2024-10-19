@@ -1,0 +1,26 @@
+body{
+background:cyan;
+}
+
+h1{
+text-transform:uppercase; 
+text-indent:40%; 
+outline-style:dotted; 
+outline-offset: 2px; 
+outline-width:thick;
+}
+
+p.special{text-transform:lowercase;}
+
+p.special1{
+text-transform:uppercase; 
+text-indent:20%;
+}
+
+p.special2{
+position: relative; 
+left: 500px; 
+transform: rotate(-10deg);
+}
+
+p.special3{transform: rotate(-10deg);}
