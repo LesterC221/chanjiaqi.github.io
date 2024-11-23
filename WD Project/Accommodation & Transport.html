@@ -1,0 +1,437 @@
+<html lang="en"> 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accommodation & Transport</title>
+    <link rel="icon" href="Sweden.jpg" type="image/jpg">
+    <style>
+        body {
+            background-color: #ADD8E6; /* Background color */
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 50px;
+            background-color: #006AA7;
+            border-bottom: 5px solid #fecc00;
+            position: relative;
+        }
+
+        .navbar h1 {
+            color: #fecc00;
+            font-size: 30px;
+            margin: 0;
+        }
+
+        .navbar nav {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            position: relative; /* Added to make sure the menu is stacked above other elements */
+            z-index: 1; /* Ensure menu stays on top of other elements */
+        }
+
+        .navbar nav a {
+            position: relative;
+            color: #000;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 20px;
+            padding: 10px;
+            transition: color 0.3s;
+        }
+
+        .navbar nav a:hover {
+            color: #fecc00;
+        }
+
+        /* Yellow hover circle effect */
+        .navbar nav a::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            border: 2px solid #fecc00;
+            transition: width 0.3s, height 0.3s, opacity 0.3s;
+            opacity: 0;
+        }
+
+        .navbar nav a:hover::after {
+            width: 100%;
+            height: 100%;
+            opacity: 1;
+        }
+
+        /* Separator styling */
+        .navbar .separator {
+            display: inline-block;
+            height: 24px;
+            width: 1px;
+            background-color: #000;
+        }
+
+        .navbar .login-link img,
+        .navbar .home-link img {
+            width: 24px;
+            height: 24px;
+            margin-right: 5px;
+        }
+
+        /* Burger menu */
+        .burger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            z-index: 2; /* Ensure burger is on top of the menu */
+        }
+
+        .burger div {
+            width: 25px;
+            height: 3px;
+            background-color: #fecc00;
+        }
+
+        /* Responsive menu */
+        @media (max-width: 768px) {
+            .navbar nav {
+                display: none;
+                flex-direction: column;
+                background-color: #006AA7;
+                position: absolute;
+                top: 100%;
+                right: 0;
+                width: 100%;
+                text-align: center;
+                border-top: 2px solid #fecc00;
+                z-index: 9999; /* Ensure menu appears on top */
+            }
+
+            .navbar nav.show {
+                display: flex;
+            }
+
+            .burger {
+                display: flex;
+                z-index: 10000; /* Make sure the burger button is on top */
+            }
+        }
+
+        /* Footer styling */
+        .footer {
+            background-color: #006AA7;
+            color: #fecc00;
+            padding: 20px;
+            text-align: center;
+            font-size: 20px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+        .footer a {
+            color: #fecc00;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .footer a:hover {
+            color: #fecc00;
+        }
+        .footer .back-to-top {
+            grid-column: span 3;
+            text-align: center;
+            margin-top: 20px;
+            font-size: 16px;
+        }
+        .footer .social-icons {
+            grid-column: span 3;
+            margin-top: 20px;
+        }
+        .social-icons img {
+            width: 30px;
+            height: 30px;
+            margin: 0 10px;
+        }
+        .footer .copyright {
+            grid-column: span 3;
+            margin-top: 10px;
+            font-size: 16px;
+        }
+
+        /* Footer link hover effect with bottom fade-in line */
+        .footer a {
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Bottom line */
+        .footer a::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 2px;
+            background-color: #fecc00; /* Line color */
+            transition: width 0.3s ease, opacity 0.3s ease;
+            opacity: 0;
+        }
+
+        /* Hover state - bottom line expands and fades in */
+        .footer a:hover::after {
+            width: 100%;
+            opacity: 1;
+        }
+
+        h1{
+            font-size: 50px;
+            color: black;
+            font-family: 'Times New Roman', Times, serif;
+            text-align: center;
+        }
+
+
+ /* 3D hover effect for accommodation and transport items */
+      
+        .service-card:hover {
+            transform: translateY(-10px) scale(1.05);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .service-card img {
+            width: 100%;
+            height: 60%;
+            object-fit: cover;
+            transition: transform 0.3s;
+        }
+
+        .service-card:hover img {
+            transform: scale(1.1);
+        }
+
+        .service-info {
+            padding: 15px;
+            color: #333;
+        }
+
+        .service-info h3 {
+            color: #006AA7;
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .service-info p {
+            font-size: 16px;
+            line-height: 1.5;
+        }
+
+        .price-tag {
+            font-weight: bold;
+            color: #fecc00;
+            font-size: 20px;
+        }
+
+        /* Section Styles */
+        .section-title {
+            text-align: center;
+            font-size: 40px;
+            color: #006AA7;
+            margin-top: 50px;
+            margin-bottom: 30px;
+        }
+
+        .services-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 40px;
+            padding: 20px;
+        }
+
+.service-card {
+    display: flex;
+    flex-direction: row; /* Arrange items side by side */
+    align-items: center;
+    overflow: hidden;
+    width: 600px;
+    height: 300px;
+    margin: 20px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.service-card img {
+    width: 50%; /* Half width for image */
+    height: 100%; /* Full height */
+    object-fit: cover;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    transition: transform 0.3s;
+}
+
+.service-card:hover img {
+    transform: scale(1.1);
+}
+
+.service-right {
+    padding: 20px;
+    width: 50%; /* Half width for text */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: #333;
+}
+
+.service-right h3 {
+    color: #006AA7;
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.service-right p {
+    font-size: 16px;
+    line-height: 1.5;
+    margin-bottom: 10px;
+}
+
+.price-tag {
+    font-weight: bold;
+    color: #fecc00;
+    font-size: 16px;
+}
+
+/* Wrapper for each card and its description */
+.service-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centers both the card and the text */
+    margin-bottom: 20px;
+}
+
+/* Description below each card */
+.service-description {
+    text-align: center;
+    font-size: 25px;
+    color: #333;
+    margin-top: 10px;
+    max-width: 600px; /* Restrict width to keep it neat */
+    line-height: 1.5;
+}
+
+      
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <div class="navbar">
+        <h1 id="Top">Hej Sweden!</h1>
+        <div class="burger" onclick="toggleMenu()">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        <nav>
+            <a href="file:///C:/Users/Lenovo/OneDrive/HTML%20WD/WD%20Project/Contact.html">Contact Us</a>
+            <a href="file:///C:/Users/Lenovo/OneDrive/HTML%20WD/WD%20Project/Seasonal%20Highlights.html">Seasonal Highlights</a>
+            <a href="file:///C:/Users/Lenovo/OneDrive/HTML%20WD/WD%20Project/Destination.html">Destination</a>
+            <a href="file:///C:/Users/Lenovo/OneDrive/HTML%20WD/WD%20Project/Tours%20and%20Package.html">Tours and Package</a>
+
+            <!-- Vertical line separator -->
+            <div class="separator"></div>
+            <!-- Login icon link -->
+            <a href="login.html" class="login-link">
+                <img src="Login.jpg" alt="Login Icon"> Login
+            </a>
+            <!-- Home button with icon -->
+            <a href="file:///C:/Users/Lenovo/OneDrive/HTML%20WD/WD%20Project/Home%20Page.html" class="home-link">
+                <img src="Yellow.jpg" alt="Home Icon"> Home
+            </a>
+        </nav>
+    </div>
+
+<!-- Services Section -->
+<div class="services-container">
+    <!-- Accommodation Section -->
+    <div class="service-wrapper">
+        <div class="service-card">
+            <img src="DestinationHotel.jpg" alt="Sweden Hotel">
+            <div class="service-right">
+                <h3>Sweden's Famous Hotels</h3>
+                <p>Experience the finest hotels with luxury amenities, comfort, and Swedish hospitality. Prices start at $150 per night.</p>
+                <div class="price-tag">From $150/night</div>
+            </div>
+        </div>
+        <p class="service-description">Book your stay in Sweden's top-rated hotels and enjoy an unforgettable experience.</p>
+    </div>
+
+    <!-- Cabin Section -->
+    <div class="service-wrapper">
+        <div class="service-card">
+            <img src="DestinationCabin.jpg" alt="Sweden Cabin">
+            <div class="service-right">
+                <h3>Swedish Cabins</h3>
+                <p>Stay in cozy cabins surrounded by nature, perfect for a tranquil getaway. Prices start at $120 per night.</p>
+                <div class="price-tag">From $120/night</div>
+            </div>
+        </div>
+        <p class="service-description">Escape the city and immerse yourself in nature with our charming Swedish cabins.</p>
+    </div>
+
+    <!-- Transport Section -->
+    <div class="service-wrapper">
+        <div class="service-card">
+            <img src="DestinationBus.jpg" alt="Sweden Bus">
+            <div class="service-right">
+                <h3>Sweden Bus Services</h3>
+                <p>Reliable and comfortable buses across Sweden. Starting at $30 per person for a one-way trip.</p>
+                <div class="price-tag">From $30/one-way</div>
+            </div>
+        </div>
+        <p class="service-description">Travel with ease and explore Sweden with our trusted bus services.</p>
+    </div>
+
+    <!-- Car Rental Section -->
+    <div class="service-wrapper">
+        <div class="service-card">
+            <img src="DestinationCar.jpg" alt="Sweden Car Rental">
+            <div class="service-right">
+                <h3>Car Rental in Sweden</h3>
+                <p>Rent a car for your Swedish adventure! Starting at $60 per day.</p>
+                <div class="price-tag">From $60/day</div>
+            </div>
+        </div>
+        <p class="service-description">Drive through the scenic routes of Sweden with our affordable car rental options.</p>
+    </div>
+</div>
+    <br>
+
+    <!-- Footer Section -->
+    <div class="footer">
+        <div><a href="file:///C:/Users/Lenovo/OneDrive/HTML%20WD/WD%20Project/Gallery.html">Gallery</a></div>
+        <div><a href="file:///C:/Users/Lenovo/OneDrive/HTML%20WD/WD%20Project/Accommodation%20&%20Transport.html">Accommodation & Transport</a></div>
+        <div><a href="file:///C:/Users/Lenovo/OneDrive/HTML%20WD/WD%20Project/Contact.html">Contact us</a></div>
+        <div><a href="file:///C:/Users/Lenovo/OneDrive/HTML%20WD/WD%20Project/Seasonal%20Highlights.html">Seasonal Highlights</a></div>
+        <div><a href="file:///C:/Users/Lenovo/OneDrive/HTML%20WD/WD%20Project/Destination.html">Destinations</a></div>
+        <div><a href="file:///C:/Users/Lenovo/OneDrive/HTML%20WD/WD%20Project/About%20Us.html">About Us</a></div>
+        <div class="back-to-top"><b>More</b></div>
+        <div class="back-to-top"><a href="#Top">Back To The Top</a></div>
+        <div class="copyright">Copyright © 2024 Visit Sweden</div>
+    </div>
+
+    <script>
+        function toggleMenu() {
+            const nav = document.querySelector('.navbar nav');
+            nav.classList.toggle('show');
+        }
+    </script>
+</body>
+</html>
