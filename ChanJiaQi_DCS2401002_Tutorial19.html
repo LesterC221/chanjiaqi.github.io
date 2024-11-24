@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tutorial 19</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        label {
+            font-weight: bold;
+        }
+        select {
+            margin: 10px 0;
+            padding: 5px;
+            width: 300px;
+        }
+        .form-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            margin-right: 10px;
+            white-space: nowrap;
+        }
+    </style>
+</head>
+<body>
+    <h1>Subject Selection</h1>
+    <form>
+        
+        <div class="form-group">
+            <label for="programme">Select Programme:</label>
+            <select id="programme">
+                <option value="">--Select Programme--</option>
+                <option value="DCS">Diploma in Computer Science (DCS)</option>
+                <option value="DIB">Diploma in Information Business (DIB)</option>
+                <option value="DAS">Diploma in Applied Sciences (DAS)</option>
+            </select>
+        </div>
+
+        
+        <div class="form-group">
+            <label for="subjects">Select Subjects:</label>
+            <select id="subjects" multiple>
+                <!-- Subject options will be dynamically added here -->
+            </select>
+        </div>
+    </form>
+
+    <script>
+        
+        const subjectLists = {
+            DCS: ["Programming", "Website Design", "Computer System"],
+            DIB: ["Business Mathematics", "Marketing Principles", "Financial Accounting"],
+            DAS: ["Biology Basics", "Chemistry Fundamentals", "Physics Principles"]
+        };
+
+        const programmeDropdown = document.getElementById("programme");
+        const subjectsDropdown = document.getElementById("subjects");
+        programmeDropdown.addEventListener("change", () => {
+            subjectsDropdown.innerHTML = "";
+            const selectedProgramme = programmeDropdown.value;
+
+               if (selectedProgramme && subjectLists[selectedProgramme]) {
+                subjectLists[selectedProgramme].forEach(subject => {
+                    const option = document.createElement("option");
+                    option.value = subject;
+                    option.textContent = subject;
+                    subjectsDropdown.appendChild(option);
+                });
+            }
+        });
+    </script>
+</body>
+</html>
