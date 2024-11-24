@@ -1,0 +1,401 @@
+<html lang="en"> 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Destination</title>
+    <link rel="icon" href="Sweden.jpg" type="image/jpg">
+    <style>
+        body {
+            background-color: #ADD8E6; /* Background color */
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 50px;
+            background-color: #006AA7;
+            border-bottom: 5px solid #fecc00;
+            position: relative;
+        }
+
+        .navbar h1 {
+            color: #fecc00;
+            font-size: 30px;
+            margin: 0;
+        }
+
+        .navbar nav {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            position: relative; /* Added to make sure the menu is stacked above other elements */
+            z-index: 1; /* Ensure menu stays on top of other elements */
+        }
+
+        .navbar nav a {
+            position: relative;
+            color: #000;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 20px;
+            padding: 10px;
+            transition: color 0.3s;
+        }
+
+        .navbar nav a:hover {
+            color: #fecc00;
+        }
+
+        /* Yellow hover circle effect */
+        .navbar nav a::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            border: 2px solid #fecc00;
+            transition: width 0.3s, height 0.3s, opacity 0.3s;
+            opacity: 0;
+        }
+
+        .navbar nav a:hover::after {
+            width: 100%;
+            height: 100%;
+            opacity: 1;
+        }
+
+        /* Separator styling */
+        .navbar .separator {
+            display: inline-block;
+            height: 24px;
+            width: 1px;
+            background-color: #000;
+        }
+
+        .navbar .login-link img,
+        .navbar .home-link img {
+            width: 24px;
+            height: 24px;
+            margin-right: 5px;
+        }
+
+        /* Burger menu */
+        .burger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            z-index: 2; /* Ensure burger is on top of the menu */
+        }
+
+        .burger div {
+            width: 25px;
+            height: 3px;
+            background-color: #fecc00;
+        }
+
+        /* Responsive menu */
+        @media (max-width: 768px) {
+            .navbar nav {
+                display: none;
+                flex-direction: column;
+                background-color: #006AA7;
+                position: absolute;
+                top: 100%;
+                right: 0;
+                width: 100%;
+                text-align: center;
+                border-top: 2px solid #fecc00;
+                z-index: 9999; /* Ensure menu appears on top */
+            }
+
+            .navbar nav.show {
+                display: flex;
+            }
+
+            .burger {
+                display: flex;
+                z-index: 10000; /* Make sure the burger button is on top */
+            }
+        }
+
+        /* Footer styling */
+        .footer {
+            background-color: #006AA7;
+            color: #fecc00;
+            padding: 20px;
+            text-align: center;
+            font-size: 20px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+        .footer a {
+            color: #fecc00;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .footer a:hover {
+            color: #fecc00;
+        }
+        .footer .back-to-top {
+            grid-column: span 3;
+            text-align: center;
+            margin-top: 20px;
+            font-size: 16px;
+        }
+        .footer .social-icons {
+            grid-column: span 3;
+            margin-top: 20px;
+        }
+        .social-icons img {
+            width: 30px;
+            height: 30px;
+            margin: 0 10px;
+        }
+        .footer .copyright {
+            grid-column: span 3;
+            margin-top: 10px;
+            font-size: 16px;
+        }
+
+        /* Footer link hover effect with bottom fade-in line */
+        .footer a {
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Bottom line */
+        .footer a::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 2px;
+            background-color: #fecc00; /* Line color */
+            transition: width 0.3s ease, opacity 0.3s ease;
+            opacity: 0;
+        }
+
+        /* Hover state - bottom line expands and fades in */
+        .footer a:hover::after {
+            width: 100%;
+            opacity: 1;
+        }
+
+        h1{
+            font-size: 50px;
+            color: black;
+            font-family: 'Times New Roman', Times, serif;
+            text-align: center;
+        }
+
+.destination-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); /* Bigger cards */
+            gap: 30px;
+            padding: 40px;
+            margin: 0 auto;
+            max-width: 1300px;
+        }
+
+        .destination-card {
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .destination-card img {
+            width: 100%;
+            height: 300px; /* Bigger images */
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .destination-card:hover img {
+            transform: scale(1.1);
+        }
+
+        .destination-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .destination-card .info {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 20px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .destination-card:hover .info {
+            opacity: 1;
+        }
+
+        .destination-card h3 {
+            margin: 0;
+            font-size: 24px;
+        }
+
+        .destination-card p {
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+         .destination-section {
+        padding: 40px;
+    }
+
+    .destination-card.large-card {
+        grid-column: span 2;
+        width: 100%;
+        height: 400px; /* Larger card height */
+        margin: 30px auto;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    }
+
+    .destination-card.large-card img {
+        height: 400px; /* Match large card height */
+    }
+
+p.special {
+    text-align: center; /* Center the text */
+    border: 5px solid gold; /* Golden border */
+    padding: 30px; /* Space between the text and the border */
+    margin: 20px auto; /* Center the <p> tag with margin for spacing */
+    width: 70%; /* Adjust width as necessary */
+    font-family: 'Garamond', serif; /* Choose a font for the text */
+    background-color: #fecc00; /* Subtle background color */
+    font-size: 30px; /* Font size */
+}
+
+
+        
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <div class="navbar">
+        <h1 id="Top">Hej Sweden!</h1>
+        <div class="burger" onclick="toggleMenu()">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        <nav>
+           <a href="https://lesterc221.github.io/chanjiaqi.github.io/WD%20Project/Contact.html">Contact Us</a>
+            <a href="https://lesterc221.github.io/chanjiaqi.github.io/WD%20Project/Seasonal%20Highlights.html">Seasonal Highlights</a>
+            <a href="https://lesterc221.github.io/chanjiaqi.github.io/WD%20Project/Destination.html">Destination</a>
+            <a href="https://lesterc221.github.io/chanjiaqi.github.io/WD%20Project/Tours%20and%20Package.html">Tours and Package</a>
+
+
+            <!-- Vertical line separator -->
+            <div class="separator"></div>
+            <!-- Login icon link -->
+            <a href="login.html" class="login-link">
+                <img src="Login.jpg" alt="Login Icon"> Login
+            </a>
+            <!-- Home button with icon -->
+            <a href="file:///C:/Users/Lenovo/OneDrive/HTML%20WD/WD%20Project/Home%20Page.html" class="home-link">
+                <img src="Yellow.jpg" alt="Home Icon"> Home
+            </a>
+        </nav>
+    </div>
+
+    <h1>MUST COME Destination</h1>
+
+    <!-- Large Hover Box at the Center -->
+    <div class="destination-card large-card">
+        <img src="Destination1.jpg" alt="Central">
+        <div class="info">
+            <h3>Central Highlight</h3>
+            <p>Discover the unique beauty of Sweden's heartland. A blend of rich history, culture, and breathtaking landscapes awaits you.</p>
+        </div>
+    </div><br>
+
+    <!-- Paragraph Below the Large Hover Box -->
+    <p class=special>Central Sweden is a captivating blend of vibrant cities like Stockholm, with its stunning archipelago and rich history, and natural wonders such as serene lakes and expansive forests. This region offers a perfect balance of cultural heritage and outdoor adventure, making it a must-visit destination for travelers.</p><br>
+
+    <!-- Next Row with 2 Cards -->
+    <div class="destination-grid">
+        <div class="destination-card">
+            <img src="Gotland.jpg" alt="Gotland">
+            <div class="info">
+                <h3>Gotland</h3>
+                <p>Sweden’s Medieval Gem. Wander Visby, explore limestone formations, and relax on sandy beaches.</p>
+            </div>
+        </div>
+
+        <div class="destination-card">
+            <img src="Malmo1.jpg" alt="Malmö">
+            <div class="info">
+                <h3>Malmö</h3>
+                <p>Connected to Denmark by the Öresund Bridge. Visit the Turning Torso, Malmö Castle, and the town of Lund.</p>
+            </div>
+        </div>
+    </div>
+
+   
+    <p class=special>Experience the charm of Sweden’s coastal cities and historic towns. A perfect blend of relaxation and exploration awaits you.</p>
+
+    
+    <div class="destination-grid">
+        <div class="destination-card">
+            <img src="Umea.jpg" alt="Umeå">
+            <div class="info">
+                <h3>Umeå</h3>
+                <p>The City of Birch Trees. Immerse yourself in art, culture, and the pristine nature of Sweden's northern gem.</p>
+            </div>
+        </div>
+
+        <div class="destination-card">
+            <img src="Lapland.jpg" alt="Lapland">
+            <div class="info">
+                <h3>Lapland</h3>
+                <p>Enter a winter wonderland in Swedish Lapland. Aurora Borealis, Sami culture, and icy adventures await.</p>
+            </div>
+        </div>
+    </div>
+
+    
+    <p class=special>Sweden offers an unforgettable experience from the southern coasts to the Arctic north. Your journey starts here.</p>
+</div>
+
+
+    <br>
+
+    <!-- Footer Section -->
+    <div class="footer">
+         <div><a href="https://lesterc221.github.io/chanjiaqi.github.io/WD%20Project/Gallery.html">Gallery</a></div>
+        <div><a href="https://lesterc221.github.io/chanjiaqi.github.io/WD%20Project/Accommodation%20&%20Transport.html">Accommodation & Transport</a></div>
+        <div><a href="https://lesterc221.github.io/chanjiaqi.github.io/WD%20Project/Contact.html">Contact us</a></div>
+        <div><a href="https://lesterc221.github.io/chanjiaqi.github.io/WD%20Project/Seasonal%20Highlights.html">Seasonal Highlights</a></div>
+        <div><a href="https://lesterc221.github.io/chanjiaqi.github.io/WD%20Project/Destination.html">Destinations</a></div>
+        <div><a href="https://lesterc221.github.io/chanjiaqi.github.io/WD%20Project/About%20Us.html">About Us</a></div>
+
+        <div class="back-to-top"><b>More</b></div>
+        <div class="back-to-top"><a href="#Top">Back To The Top</a></div>
+        <div class="copyright">Copyright © 2024 Visit Sweden</div>
+    </div>
+
+     <script>
+        function toggleMenu() {
+            const nav = document.querySelector('.navbar nav');
+            nav.classList.toggle('show');
+        }
+    </script>
+</body>
+</html>

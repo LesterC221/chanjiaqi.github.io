@@ -1,0 +1,525 @@
+<html lang="en"> 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seasonal Hisghlights</title>
+    <link rel="icon" href="Sweden.jpg" type="image/jpg">
+    <style>
+        body {
+            background-color: #ADD8E6; /* Background color */
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 50px;
+            background-color: #006AA7;
+            border-bottom: 5px solid #fecc00;
+            position: relative;
+        }
+
+        .navbar h1 {
+            color: #fecc00;
+            font-size: 30px;
+            margin: 0;
+        }
+
+        .navbar nav {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            position: relative; /* Added to make sure the menu is stacked above other elements */
+            z-index: 1; /* Ensure menu stays on top of other elements */
+        }
+
+        .navbar nav a {
+            position: relative;
+            color: #000;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 20px;
+            padding: 10px;
+            transition: color 0.3s;
+        }
+
+        .navbar nav a:hover {
+            color: #fecc00;
+        }
+
+        /* Yellow hover circle effect */
+        .navbar nav a::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            border: 2px solid #fecc00;
+            transition: width 0.3s, height 0.3s, opacity 0.3s;
+            opacity: 0;
+        }
+
+        .navbar nav a:hover::after {
+            width: 100%;
+            height: 100%;
+            opacity: 1;
+        }
+
+        /* Separator styling */
+        .navbar .separator {
+            display: inline-block;
+            height: 24px;
+            width: 1px;
+            background-color: #000;
+        }
+
+        .navbar .login-link img,
+        .navbar .home-link img {
+            width: 24px;
+            height: 24px;
+            margin-right: 5px;
+        }
+
+        /* Burger menu */
+        .burger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            z-index: 2; /* Ensure burger is on top of the menu */
+        }
+
+        .burger div {
+            width: 25px;
+            height: 3px;
+            background-color: #fecc00;
+        }
+
+        /* Responsive menu */
+        @media (max-width: 768px) {
+            .navbar nav {
+                display: none;
+                flex-direction: column;
+                background-color: #006AA7;
+                position: absolute;
+                top: 100%;
+                right: 0;
+                width: 100%;
+                text-align: center;
+                border-top: 2px solid #fecc00;
+                z-index: 9999; /* Ensure menu appears on top */
+            }
+
+            .navbar nav.show {
+                display: flex;
+            }
+
+            .burger {
+                display: flex;
+                z-index: 10000; /* Make sure the burger button is on top */
+            }
+        }
+
+        /* Footer styling */
+        .footer {
+            background-color: #006AA7;
+            color: #fecc00;
+            padding: 20px;
+            text-align: center;
+            font-size: 20px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+        .footer a {
+            color: #fecc00;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .footer a:hover {
+            color: #fecc00;
+        }
+        .footer .back-to-top {
+            grid-column: span 3;
+            text-align: center;
+            margin-top: 20px;
+            font-size: 16px;
+        }
+        .footer .social-icons {
+            grid-column: span 3;
+            margin-top: 20px;
+        }
+        .social-icons img {
+            width: 30px;
+            height: 30px;
+            margin: 0 10px;
+        }
+        .footer .copyright {
+            grid-column: span 3;
+            margin-top: 10px;
+            font-size: 16px;
+        }
+
+        /* Footer link hover effect with bottom fade-in line */
+        .footer a {
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Bottom line */
+        .footer a::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 2px;
+            background-color: #fecc00; /* Line color */
+            transition: width 0.3s ease, opacity 0.3s ease;
+            opacity: 0;
+        }
+
+        /* Hover state - bottom line expands and fades in */
+        .footer a:hover::after {
+            width: 100%;
+            opacity: 1;
+        }
+
+        h1{
+            font-size: 50px;
+            color: black;
+            font-family: 'Times New Roman', Times, serif;
+            text-align: center;
+        }
+
+ /* Styling for the photo table */
+    .photo-table {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+        margin: 20px auto;
+        width: 80%;
+    }
+
+    .photo-table .photo-card {
+        position: relative;
+        overflow: hidden;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .photo-table .photo-card:hover {
+        transform: scale(1.05);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .photo-table img {
+        width: 100%;
+        height: auto;
+        display: block;
+        border-radius: 10px;
+    }
+
+    .photo-table .photo-caption {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: rgba(0, 0, 0, 0.6);
+        color: #fff;
+        padding: 10px;
+        text-align: center;
+        font-size: 16px;
+        font-family: Arial, sans-serif;
+        transition: background 0.3s ease;
+    }
+
+    .photo-table .photo-card:hover .photo-caption {
+        background: rgba(0, 0, 0, 0.8);
+    }
+
+.interactive-bars { 
+    width: 80%;
+    margin: 20px auto;
+}
+
+.bar {
+    background: #FFCC00; /* IKEA yellow */
+    color: black; /* Black text for readability */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    margin-bottom: 5px;
+    border: 2px solid #FFD700; /* Slightly golden border */
+    cursor: pointer;
+    font-family: Arial, sans-serif;
+    font-size: 18px;
+    transition: background 0.3s, transform 0.3s;
+}
+
+.bar:hover {
+    background: #E5B800; /* Slightly darker IKEA yellow for hover */
+    transform: scale(1.02);
+}
+
+.bar-text {
+    flex: 1;
+}
+
+.toggle-btn {
+    font-weight: bold;
+    font-size: 20px;
+    margin-left: 20px;
+}
+
+.info {
+    max-height: 0;
+    padding: 0 20px;
+    border: 2px solid gold;
+    border-top: none;
+    background: #f9f9f9;
+    color: #000;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    transition: max-height 0.3s ease, padding 0.3s ease;
+    overflow: hidden;
+}
+
+.info.expanded {
+    max-height: 500px; /* Adjust based on the content */
+    padding: 10px 20px; /* Padding added back when expanded */
+}
+
+/* --- New Additions Start Here --- */
+.info.dynamic-expanded {
+    max-height: none; /* Dynamically adjust to content size */
+    height: auto; /* Ensure height matches content */
+    padding: 10px 20px; /* Maintain consistent padding */
+    transition: height 0.3s ease, padding 0.3s ease;
+    overflow-y: auto; /* Add scroll for long content (optional) */
+}
+
+.info.dynamic-collapsed {
+    height: 0; /* Fully collapsed */
+    overflow: hidden;
+    padding: 0 20px; /* Minimal padding when collapsed */
+}
+
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <div class="navbar">
+        <h1 id="Top">Hej Sweden!</h1>
+        <div class="burger" onclick="toggleMenu()">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        <nav>
+           <a href="https://lesterc221.github.io/chanjiaqi.github.io/WD%20Project/Contact.html">Contact Us</a>
+            <a href="https://lesterc221.github.io/chanjiaqi.github.io/WD%20Project/Seasonal%20Highlights.html">Seasonal Highlights</a>
+            <a href="https://lesterc221.github.io/chanjiaqi.github.io/WD%20Project/Destination.html">Destination</a>
+            <a href="https://lesterc221.github.io/chanjiaqi.github.io/WD%20Project/Tours%20and%20Package.html">Tours and Package</a>
+
+
+            <!-- Vertical line separator -->
+            <div class="separator"></div>
+            <!-- Login icon link -->
+            <a href="login.html" class="login-link">
+                <img src="Login.jpg" alt="Login Icon"> Login
+            </a>
+            <!-- Home button with icon -->
+            <a href="file:///C:/Users/Lenovo/OneDrive/HTML%20WD/WD%20Project/Home%20Page.html" class="home-link">
+                <img src="Yellow.jpg" alt="Home Icon"> Home
+            </a>
+        </nav>
+    </div>
+
+    <h1>Seasonal Highlights</h1>
+
+<!-- Photo Grid Section -->
+<div class="photo-table">
+    <div class="photo-card">
+        <img src="Winter.jpg" alt="Winter">
+        <div class="photo-caption">Winter</div>
+    </div>
+    <div class="photo-card">
+        <img src="Autumn.jpg" alt="Autumn">
+        <div class="photo-caption">Autumn</div>
+    </div>
+    <div class="photo-card">
+        <img src="Summer.jpg" alt="Summer">
+        <div class="photo-caption">Summer</div>
+    </div>
+    <div class="photo-card">
+        <img src="Spring.jpg" alt="Spring">
+        <div class="photo-caption">Spring</div>
+    </div>
+</div>
+
+<br>
+
+<div class="interactive-bars">
+    <div class="bar" onclick="toggleInfo(this)">
+        <span class="bar-text">Winter</span>
+        <span class="toggle-btn">+</span>
+    </div>
+    <div class="info">
+        <p>Best Places to Visit in Sweden During Winter <br><br>
+
+<u>Abisko & Kiruna</u> <br><br>
+Why? Best for Northern Lights hunting and unique experiences like staying at the ICEHOTEL. Abisko National Park boasts some of the clearest skies for viewing auroras.
+When? From December to March for ideal times of aurora sighting.
+What to Do? Aurora chasing, dog sledding, reindeer safaris, visiting the ICEHOTEL, and snowmobiling.<br><br>
+
+<u>Stockholm</u> <br><br>
+Why? Conjure up the enchanting beauty of the capital-with snow-clad streets, dripping history, and bustling Christmas markets.
+When? Late November to early January for holiday festivities or February for a quieter winter experience.
+What to Do? Ice skating, exploring Gamla Stan (Old Town), visiting museums, and enjoying Christmas markets.<br><br>
+
+<u>Gothenburg</u> <br><br>
+Why? Enchanting Christmas markets, especially at Liseberg Amusement Park, and cozy winter vibes.
+When? During the late part of November to December for the markets.
+What to Do? Go shop for some unique gifts, try fresh seafood, and explore the wintery archipelago.<br></p>
+    </div><br>
+
+    <div class="bar" onclick="toggleInfo(this)">
+        <span class="bar-text">Autumn</span>
+        <span class="toggle-btn">+</span>
+    </div>
+    <div class="info">
+        <p>Best Places to Visit in Sweden During Autumn<br><br>
+
+<u>Stockholm Archipelago</u> <br><br>
+Why? The islands are less crowded, and the foliage transforms into vibrant autumn colors, creating stunning scenery.
+When? September to October for peak fall colors.
+What to Do? Take a boat tour, hike scenic trails, or enjoy cozy fika in quaint seaside villages.<br><br>
+
+<u>Abisko National Park</u> <br><br>
+Why? Autumn in Abisko offers stunning golden birch forests and the first chances to see the Northern Lights as the skies darken.
+When? Late September to early October for fall foliage and aurora hunting.
+What to Do? Hike the Kungsleden Trail, enjoy photography, or try for early-season auroras.<br><br>
+
+<u>Gothenburg</u> <br><br>
+Why? A lively city with cultural events, harvest festivals, and cozy vibes during autumn.
+When? September to October for markets and seafood season.
+What to Do? Visit the Gothenburg Museum of Art, explore the botanical gardens, or enjoy fresh shellfish during the West Coast Shellfish Season.<br><br>
+
+<u>Dalarna</u> <br><br>
+Why? Known for its traditional Swedish countryside, Dalarna becomes a canvas of red, yellow, and orange during autumn.
+When? Late September to early October for the best foliage.
+What to Do? Explore Lake Siljan, visit historic villages, and enjoy outdoor activities like biking or kayaking.<br><br>
+
+</p>
+    </div><br>
+
+    <div class="bar" onclick="toggleInfo(this)">
+        <span class="bar-text">Summer</span>
+        <span class="toggle-btn">+</span>
+    </div>
+    <div class="info">
+        <p>Best Places to Visit in Sweden During Summer<br><br>
+
+<u>Stockholm Archipelago</u> <br><br>
+Why? With over 30,000 islands, the archipelago is a summer paradise offering serene landscapes and outdoor activities.
+When? June to August for long sunny days and warm weather.
+What to Do? Go kayaking, take boat tours, enjoy picnics on secluded islands, or swim in the Baltic Sea.<br><br>
+
+<u>Gotland</u> <br><br>
+Why? Sweden’s largest island is famous for its medieval town of Visby (a UNESCO World Heritage Site), sandy beaches, and summer festivals.
+When? July for the Medieval Week Festival or August for fewer crowds.
+What to Do? Explore Visby’s cobblestone streets, relax on beaches, or hike along the island’s rugged coastline.<br><br>
+
+<u>Malmö and Skåne (Southern Sweden)</u> <br><br>
+Why? Known for its beaches, picturesque countryside, and vibrant city life.
+When? June to August for outdoor adventures and cultural events.
+What to Do? Visit the beaches of Falsterbo, cycle through the Skåne countryside, and enjoy Malmö’s parks and modern architecture.<br><br>
+
+<u>Dalarna</u> <br><br>
+Why? The heart of Swedish traditions, Dalarna is especially festive in summer with Midsummer celebrations.
+When? June for Midsummer (around June 21).
+What to Do? Participate in Midsummer festivities, hike around Lake Siljan, and visit traditional villages like Rättvik and Mora.<br><br>
+
+<u>Gothenburg and the Bohuslän Coast</u> <br><br>
+Why? Known for its seafood, charming fishing villages, and stunning coastline dotted with granite cliffs.
+When? June to August for the best weather.
+What to Do? Explore the Gothenburg archipelago, savor fresh seafood, and go island-hopping.</p>
+    </div><br>
+
+    <div class="bar" onclick="toggleInfo(this)">
+        <span class="bar-text">Spring</span>
+        <span class="toggle-btn">+</span>
+    </div>
+    <div class="info">
+        <p>Best Places to Visit in Sweden During Spring<br><br>
+
+<u>Stockholm</u> <br><br>
+Why? The city awakens with cherry blossoms, vibrant parks, and cultural events, offering a perfect blend of nature and city life.
+When? April to May for blooming flowers and milder weather.
+What to Do? Visit Kungsträdgården Park for cherry blossoms, explore the Skansen Open-Air Museum, and take boat tours through the city’s canals.<br><br>
+
+<u>Malmö and Skåne</u> <br><br>
+Why? Southern Sweden bursts into color with blooming tulips, vibrant rapeseed fields, and sunny weather.
+When? April to May for flower festivals and pleasant temperatures.
+What to Do? Walk through Malmö Castle Gardens, bike along the Skåne countryside, and visit the Sofiero Palace Gardens.<br><br>
+
+<u>Lapland</u> <br><br>
+Why? Spring offers a unique mix of snow-covered landscapes and emerging greenery, along with quiet trails.
+When? March to early May for snowy adventures and late May for the first signs of summer.
+What to Do? Go skiing, enjoy husky sled rides, or take peaceful hikes in Abisko National Park.<br><br>
+
+<u>Gothenburg</u> <br><br>
+Why? Known for its vibrant tulip displays and gardens, Gothenburg is a springtime delight for nature lovers.
+When? April to May for blooming flowers.
+What to Do? Stroll through Botaniska Trädgården (Botanical Garden), visit Liseberg Amusement Park, or enjoy seafood by the harbor.</p>
+    </div><br>
+</div>
+
+
+    <br>
+
+    <!-- Footer Section -->
+    <div class="footer">
+         <div><a href="https://lesterc221.github.io/chanjiaqi.github.io/WD%20Project/Gallery.html">Gallery</a></div>
+        <div><a href="https://lesterc221.github.io/chanjiaqi.github.io/WD%20Project/Accommodation%20&%20Transport.html">Accommodation & Transport</a></div>
+        <div><a href="https://lesterc221.github.io/chanjiaqi.github.io/WD%20Project/Contact.html">Contact us</a></div>
+        <div><a href="https://lesterc221.github.io/chanjiaqi.github.io/WD%20Project/Seasonal%20Highlights.html">Seasonal Highlights</a></div>
+        <div><a href="https://lesterc221.github.io/chanjiaqi.github.io/WD%20Project/Destination.html">Destinations</a></div>
+        <div><a href="https://lesterc221.github.io/chanjiaqi.github.io/WD%20Project/About%20Us.html">About Us</a></div>
+
+        <div class="back-to-top"><b>More</b></div>
+        <div class="back-to-top"><a href="#Top">Back To The Top</a></div>
+        <div class="copyright">Copyright © 2024 Visit Sweden</div>
+    </div>
+
+    <script>
+        function toggleMenu() {
+            const nav = document.querySelector('.navbar nav');
+            nav.classList.toggle('show');
+        }
+    </script>
+
+<script>
+    function toggleInfo(barElement) {
+    const info = barElement.nextElementSibling;
+    const toggleBtn = barElement.querySelector('.toggle-btn');
+    
+    if (info.classList.contains('expanded')) {
+        info.classList.remove('expanded');
+        toggleBtn.textContent = "+";
+    } else {
+        info.classList.add('expanded');
+        toggleBtn.textContent = "-";
+    }
+}
+</script>
+
+</body>
+</html>
