@@ -1,0 +1,416 @@
+<html lang="en"> 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us</title>
+    <link rel="icon" href="Sweden.jpg" type="image/jpg">
+    <style>
+        body {
+            background-color: #ADD8E6; /* Background color */
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 50px;
+            background-color: #006AA7;
+            border-bottom: 5px solid #fecc00;
+            position: relative;
+        }
+
+        .navbar h1 {
+            color: #fecc00;
+            font-size: 30px;
+            margin: 0;
+        }
+
+        .navbar nav {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            position: relative; /* Added to make sure the menu is stacked above other elements */
+            z-index: 1; /* Ensure menu stays on top of other elements */
+        }
+
+        .navbar nav a {
+            position: relative;
+            color: #000;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 20px;
+            padding: 10px;
+            transition: color 0.3s;
+        }
+
+        .navbar nav a:hover {
+            color: #fecc00;
+        }
+
+        /* Yellow hover circle effect */
+        .navbar nav a::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            border: 2px solid #fecc00;
+            transition: width 0.3s, height 0.3s, opacity 0.3s;
+            opacity: 0;
+        }
+
+        .navbar nav a:hover::after {
+            width: 100%;
+            height: 100%;
+            opacity: 1;
+        }
+
+        /* Separator styling */
+        .navbar .separator {
+            display: inline-block;
+            height: 24px;
+            width: 1px;
+            background-color: #000;
+        }
+
+        .navbar .login-link img,
+        .navbar .home-link img {
+            width: 24px;
+            height: 24px;
+            margin-right: 5px;
+        }
+
+        /* Burger menu */
+        .burger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            z-index: 2; /* Ensure burger is on top of the menu */
+        }
+
+        .burger div {
+            width: 25px;
+            height: 3px;
+            background-color: #fecc00;
+        }
+
+        /* Responsive menu */
+        @media (max-width: 768px) {
+            .navbar nav {
+                display: none;
+                flex-direction: column;
+                background-color: #006AA7;
+                position: absolute;
+                top: 100%;
+                right: 0;
+                width: 100%;
+                text-align: center;
+                border-top: 2px solid #fecc00;
+                z-index: 9999; /* Ensure menu appears on top */
+            }
+
+            .navbar nav.show {
+                display: flex;
+            }
+
+            .burger {
+                display: flex;
+                z-index: 10000; /* Make sure the burger button is on top */
+            }
+        }
+
+        /* Footer styling */
+        .footer {
+            background-color: #006AA7;
+            color: #fecc00;
+            padding: 20px;
+            text-align: center;
+            font-size: 20px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+        .footer a {
+            color: #fecc00;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .footer a:hover {
+            color: #fecc00;
+        }
+        .footer .back-to-top {
+            grid-column: span 3;
+            text-align: center;
+            margin-top: 20px;
+            font-size: 16px;
+        }
+        .footer .social-icons {
+            grid-column: span 3;
+            margin-top: 20px;
+        }
+        .social-icons img {
+            width: 30px;
+            height: 30px;
+            margin: 0 10px;
+        }
+        .footer .copyright {
+            grid-column: span 3;
+            margin-top: 10px;
+            font-size: 16px;
+        }
+
+        /* Footer link hover effect with bottom fade-in line */
+        .footer a {
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Bottom line */
+        .footer a::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 2px;
+            background-color: #fecc00; /* Line color */
+            transition: width 0.3s ease, opacity 0.3s ease;
+            opacity: 0;
+        }
+
+        /* Hover state - bottom line expands and fades in */
+        .footer a:hover::after {
+            width: 100%;
+            opacity: 1;
+        }
+
+        h1{
+            font-size: 50px;
+            color: black;
+            font-family: 'Times New Roman', Times, serif;
+            text-align: center;
+        }
+
+  /* Centered Profile Photo Section */
+        .profile-section {
+            text-align: center;
+            margin: 50px 0;
+        }
+
+        .profile-photo {
+            width: 400px;
+            height: 270px;
+            border-radius: 50%;
+            border: 5px solid #006AA7;
+            overflow: hidden;
+            transition: transform 0.3s;
+            cursor: pointer;
+        }
+
+        .profile-photo:hover {
+            transform: scale(1.1);
+        }
+
+        .profile-text {
+            margin-top: 15px;
+            font-size: 25px;
+            color: #000;
+        }
+
+        /* Left Photo and Right Text Section */
+        .info-section {
+            display: flex;
+            align-items: center;
+            margin: 50px;
+        }        
+
+        .info-content {
+            margin-left: 20px;
+        }
+
+        .info-heading {
+            font-size: 40px;
+            font-weight: bold;
+            color: #006AA7;
+        }
+
+        .info-text {
+            margin-top: 10px;
+            font-size: 20px;
+            color: #333;
+        }
+
+.info-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Optional for better spacing */
+    margin: 50px;
+}
+
+.info-content {
+    margin-right: 20px; /* Added margin to the right for spacing */
+}
+
+.info-photo {
+    width: 500px;
+    height: 400px;
+    border-radius: 10px;
+    overflow: hidden;
+    flex-shrink: 0;
+    margin-left: 20px; /* Added margin to the left for spacing */
+}
+
+        /* Hover Photo Boxes Section */
+        .hover-photo-boxes {
+            display: flex;
+            justify-content: space-around;
+            margin: 50px 0;
+        }
+
+        .hover-box {
+            text-align: center;
+        }
+
+        .hover-photo {
+            width: 300px;
+            height: 250px;
+            border-radius: 10px;
+            overflow: hidden;
+            transition: transform 0.3s;
+            cursor: pointer;
+            border: 3px solid #006AA7;
+        }
+
+        .hover-photo:hover {
+            transform: scale(1.1);
+        }
+
+        .hover-text {
+            margin-top: 10px;
+            font-size: 14px;
+            color: #000;
+        }
+
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <div class="navbar">
+        <h1 id="Top">Hej Sweden!</h1>
+        <div class="burger" onclick="toggleMenu()">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        <nav>
+           <a href="https://lesterc221.github.io/chanjiaqi.github.io/WD%20Project/Contact.html">Contact Us</a>
+            <a href="https://lesterc221.github.io/chanjiaqi.github.io/WD%20Project/Seasonal%20Highlights.html">Seasonal Highlights</a>
+            <a href="https://lesterc221.github.io/chanjiaqi.github.io/WD%20Project/Destination.html">Destination</a>
+            <a href="https://lesterc221.github.io/chanjiaqi.github.io/WD%20Project/Tours%20and%20Package.html">Tours and Package</a>
+
+            <!-- Vertical line separator -->
+            <div class="separator"></div>
+            <!-- Login icon link -->
+            <a href="login.html" class="login-link">
+                <img src="Login.jpg" alt="Login Icon"> Login
+            </a>
+            <!-- Home button with icon -->
+            <a href="file:///C:/Users/Lenovo/OneDrive/HTML%20WD/WD%20Project/Home%20Page.html" class="home-link">
+                <img src="Yellow.jpg" alt="Home Icon"> Home
+            </a>
+        </nav>
+    </div>
+
+    <h1>About Us</h1>
+
+ <!-- Profile Photo Section -->
+    <div class="profile-section">
+        <img src="Zlatan.jpg" alt="Profile Photo" class="profile-photo">
+        <div class="profile-text">Hej and welcome! 🌟
+
+Discover the heart of Sweden—where stunning landscapes, rich culture, and unforgettable adventures await. 
+<br>From the northern lights to Stockholm's charm, we’re here to guide you through the best of Swedish experiences.
+<br>Your journey starts here. Explore Sweden with us! 💙💛-CEO 
+
+</div>
+    </div><br>
+
+    <!-- Photo and Text Section -->
+    <div class="info-section">
+        <img src="SwedenWater.jpg" alt="Info Photo" class="info-photo">
+        <div class="info-content">
+            <div class="info-heading">Our Vision</div>
+            <div class="info-text">At Sweden Tourism, our vision is to inspire travelers to explore the beauty, culture, and spirit of Sweden. We are dedicated to showcasing Sweden as a destination where nature and innovation thrive in harmony, and where every visitor can create unforgettable memories.<br><br>
+
+Our vision also embraces sustainability, aiming to protect Sweden’s pristine landscapes while promoting responsible tourism. From the northern lights of Lapland to the bustling streets of Stockholm, we seek to connect people with the essence of Sweden through authentic and meaningful experiences.<br><br>
+
+Join us in bringing this vision to life—your journey begins here. </div>
+        </div>
+    </div><br><br>
+
+<div class="info-section">
+    <div class="info-content">
+        <div class="info-heading">Our Value</div>
+        <div class="info-text">At Sweden Tourism, we take pride in the values that shape our vision and guide every interaction with our visitors. Sustainability lies at the heart of everything we do—we are dedicated to preserving Sweden’s pristine landscapes, vibrant ecosystems, and cultural heritage for generations to come.<br><br>
+
+Authenticity is another cornerstone of our mission. We strive to offer experiences that truly reflect Sweden’s unique identity, from its breathtaking natural wonders and historic landmarks to its warm hospitality and traditions.<br><br>
+
+Above all, we value your journey. Whether you're exploring the majestic Arctic, embracing the serenity of Sweden's countryside, or diving into the rich history of our cities, we aim to create unforgettable moments that reflect the heart and soul of Sweden.<br><br>
+
+Discover the values that inspire us and experience Sweden with care, respect, and wonder. </div>
+    </div>
+    <img src="Building.jpg" alt="Info Photo" class="info-photo">
+</div><br><br>
+
+    <!-- Hover Photo Boxes Section -->
+    <div class="hover-photo-boxes">
+        <div class="hover-box">
+            <img src="T1.jpg" alt="Team Member 1" class="hover-photo">
+            <div class="hover-text">Lee Zii Ji - Project Manager</div>
+        </div>
+        <div class="hover-box">
+            <img src="T2.jpg" alt="Team Member 2" class="hover-photo">
+            <div class="hover-text">Chirstiano Ronildo - Tour Guide</div>
+        </div>
+        <div class="hover-box">
+            <img src="T3.jpg" alt="Team Member 3" class="hover-photo">
+            <div class="hover-text">Lewis Bomilton - Customer Support</div>
+        </div>
+    </div>
+
+<div class="info-section">
+            <div class="info-content">
+            <div class="info-heading">Our Team</div>
+            <div class="info-text">The team behind this Sweden tourism website is a highly dedicated and experienced group of professionals, committed to providing users with an outstanding experience.Led by a skilled project manager, the team works seamlessly together, combining the expertise of web designers, UI/UX specialists, and developers. <br><br>
+The designers focus on crafting an intuitive and visually stunning interface that reflects the beauty and diversity of Sweden, while the developers ensure a fast, secure, and responsive website.<br><br> 
+Every member of the team is driven by a passion for excellence, working tirelessly to create a platform that offers users a smooth, engaging, and informative experience as they explore all that Sweden has to offer.</div>
+        </div>
+    </div><br><br>
+
+    <!-- Footer Section -->
+    <div class="footer">
+         <div><a href="https://lesterc221.github.io/chanjiaqi.github.io/WD%20Project/Gallery.html">Gallery</a></div>
+        <div><a href="https://lesterc221.github.io/chanjiaqi.github.io/WD%20Project/Accommodation%20&%20Transport.html">Accommodation & Transport</a></div>
+        <div><a href="https://lesterc221.github.io/chanjiaqi.github.io/WD%20Project/Contact.html">Contact us</a></div>
+        <div><a href="https://lesterc221.github.io/chanjiaqi.github.io/WD%20Project/Seasonal%20Highlights.html">Seasonal Highlights</a></div>
+        <div><a href="https://lesterc221.github.io/chanjiaqi.github.io/WD%20Project/Destination.html">Destinations</a></div>
+        <div><a href="https://lesterc221.github.io/chanjiaqi.github.io/WD%20Project/About%20Us.html">About Us</a></div>
+
+        <div class="back-to-top"><b>More</b></div>
+        <div class="back-to-top"><a href="#Top">Back To The Top</a></div>
+        <div class="copyright">Copyright © 2024 Visit Sweden</div>
+    </div>
+
+    <script>
+        function toggleMenu() {
+            const nav = document.querySelector('.navbar nav');
+            nav.classList.toggle('show');
+        }
+    </script>
+</body>
+</html>
